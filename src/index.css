@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Styles ─────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+  overflow-y: scroll; /* prevent layout shift on scrollbar appear */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  /* Crisp, antialiased rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  @apply bg-white text-slate-800 transition-colors duration-500;
+}
+
+.dark body,
+.dark {
+  @apply bg-[#0a0f1e] text-slate-100;
+}
+
+/* ─── Custom Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { @apply bg-transparent; }
+::-webkit-scrollbar-thumb {
+  @apply bg-cyan-400/60 rounded-full;
+  transition: background 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover { @apply bg-cyan-400; }
+
+/* ─── Layout Utilities ─────────────────────────────────── */
+@layer utilities {
+  .section-padding {
+    @apply py-20 px-6 md:px-12 lg:px-24;
+  }
+
+  .container-max {
+    @apply max-w-6xl mx-auto;
+  }
+
+  /* ─── Glassmorphism Card ─── */
+  .glass-card {
+    @apply bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl;
+    /* Own GPU compositing layer */
+    transform: translateZ(0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  /* ─── Gradient Text ─── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent;
+  }
+
+  /* ─── Section Title ─── */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto;
+  }
+
+  /* ─── Skill Badge ─── */
+  .skill-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg
+           bg-slate-100 dark:bg-dark-600 text-slate-700 dark:text-slate-300
+           border border-slate-200 dark:border-slate-700
+           hover:border-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-400
+           cursor-default;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ─── Primary Button — spring bounce feel ─── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           bg-gradient-to-r from-cyan-500 to-teal-500 text-white
+           hover:from-cyan-400 hover:to-teal-400
+           shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform, box-shadow;
+  }
+  .btn-primary:hover  { transform: translateY(-2px) scale(1.03); }
+  .btn-primary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.1s; }
+
+  /* ─── Secondary Button ─── */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
+           border-2 border-cyan-400 text-cyan-400 dark:text-cyan-400
+           hover:bg-cyan-400 hover:text-slate-900 dark:hover:text-slate-900;
+    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: transform;
+  }
+  .btn-secondary:hover  { transform: translateY(-2px) scale(1.03); }
+  .btn-secondary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.1s; }
+
+  /* ─── Animated Background Glow Dots ─── */
+  .bg-dot-pattern {
+    background-image: radial-gradient(circle, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+}
+
+/* ─── Navbar glass effect ──────────────────────────────── */
+.navbar-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.dark .navbar-glass {
+  background: rgba(10, 15, 30, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ─── Hero background gradient ─────────────────────────── */
+.hero-gradient {
+  background: radial-gradient(ellipse at 20% 50%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(52, 211, 153, 0.10) 0%, transparent 50%),
+              radial-gradient(ellipse at 60% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+}
+
+/* ─── Hover Glow — spring cubic-bezier easing ──────────── */
+.hover-glow {
+  transition: box-shadow  0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              transform   0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              border-color 0.3s ease;
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35),
+              0 24px 48px rgba(34, 211, 238, 0.12),
+              0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+}
+
+/* ─── Page entrance ─────────────────────────────────────── */
+@keyframes page-enter {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#root {
+  animation: page-enter 0.45s ease both;
+}
+
+/* ─── Selection color ───────────────────────────────────── */
+::selection {
+  background: rgba(34, 211, 238, 0.22);
+}
+
+/* ─── Focus ring ────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(34, 211, 238, 0.7);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
