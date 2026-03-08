@@ -1,17 +1,8 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import emailjs from "@emailjs/browser";
 import { FaGithub, FaLinkedin, FaEnvelope, FaPaperPlane } from "react-icons/fa";
 import { HiCheckCircle, HiExclamationCircle } from "react-icons/hi";
 import personal from "../data/personal";
-
-// ─── EmailJS Config ─────────────────────────────────────────────────────────
-// TODO: Replace these with your actual EmailJS credentials
-// 1. Sign up free at https://www.emailjs.com/
-// 2. Create a service, email template, and get your public key
-const EMAILJS_SERVICE_ID = "service_x8u3mxt";
-const EMAILJS_TEMPLATE_ID = "template_yl65lod";
-const EMAILJS_PUBLIC_KEY = "oO6Y1oB-XznyXdE4O";
 
 // ─── Social Links ───────────────────────────────────────────────────────────
 
@@ -23,7 +14,7 @@ const socials = [
 
 // ─── Input / Textarea Field ─────────────────────────────────────────────────
 
-const Field = ({ label, id, type = "text", rows, value, onChange, placeholder, required }) => (
+const Field = ({ label, id, type = "text", rows, placeholder, required }) => (
   <div className="flex flex-col gap-1.5">
     <label htmlFor={id} className="text-sm font-medium text-slate-700 dark:text-slate-300">
       {label}
@@ -33,8 +24,6 @@ const Field = ({ label, id, type = "text", rows, value, onChange, placeholder, r
         id={id}
         name={id}
         rows={rows}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
         required={required}
         className="w-full px-4 py-3 rounded-xl text-sm bg-slate-50 dark:bg-dark-600 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400 resize-none transition-all"
@@ -44,8 +33,6 @@ const Field = ({ label, id, type = "text", rows, value, onChange, placeholder, r
         id={id}
         name={id}
         type={type}
-        value={value}
-        onChange={onChange}
         placeholder={placeholder}
         required={required}
         className="w-full px-4 py-3 rounded-xl text-sm bg-slate-50 dark:bg-dark-600 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 focus:border-cyan-400 transition-all"
@@ -57,29 +44,38 @@ const Field = ({ label, id, type = "text", rows, value, onChange, placeholder, r
 // ─── Component ──────────────────────────────────────────────────────────────
 
 const Contact = () => {
-  const formRef = useRef(null);
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: false, margin: "-60px" });
 
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState(null); // null | "sending" | "success" | "error"
-
-  const handleChange = (e) =>
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus("sending");
-
+    
+    const form = e.target;
+    
     try {
-      await emailjs.sendForm(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        EMAILJS_PUBLIC_KEY
-      );
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      const response = await fetch("https://formsubmit.co/ajax/avnitsingh58@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: form.name.value,
+            email: form.email.value,
+            message: form.message.value,
+            _subject: `New Portfolio Message from ${form.name.value}`
+        })
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        throw new Error("Network response was not ok");
+      }
     } catch (err) {
       console.error(err);
       setStatus("error");
@@ -163,13 +159,15 @@ const Contact = () => {
             transition={{ type: "spring", stiffness: 80, damping: 18, delay: 0.2 }}
             className="lg:col-span-3"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-5 sm:p-8 space-y-5">
+            <form onSubmit={handleSubmit} className="glass-card p-5 sm:p-8 space-y-5">
+              {/* FormSubmit Configuration */}
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              
               <div className="grid sm:grid-cols-2 gap-5">
                 <Field
                   label="Your Name"
                   id="name"
-                  value={form.name}
-                  onChange={handleChange}
                   placeholder="Avnit Singh"
                   required
                 />
@@ -177,8 +175,6 @@ const Contact = () => {
                   label="Email Address"
                   id="email"
                   type="email"
-                  value={form.email}
-                  onChange={handleChange}
                   placeholder="hello@example.com"
                   required
                 />
@@ -188,8 +184,6 @@ const Contact = () => {
                 label="Message"
                 id="message"
                 rows={5}
-                value={form.message}
-                onChange={handleChange}
                 placeholder="Hey Avnit, I'd love to chat about..."
                 required
               />
@@ -198,7 +192,7 @@ const Contact = () => {
               {status === "success" && (
                 <div className="flex items-center gap-2 text-sm text-emerald-500 bg-emerald-50 dark:bg-emerald-400/10 border border-emerald-200 dark:border-emerald-400/20 rounded-xl px-4 py-3">
                   <HiCheckCircle size={18} />
-                  Message sent! I'll get back to you shortly.
+                  Message sent! Make sure to check your Gmail inbox to activate FormSubmit on the first ever submit.
                 </div>
               )}
               {status === "error" && (
