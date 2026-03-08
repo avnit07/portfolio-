@@ -192,7 +192,7 @@ const Contact = () => {
               {status === "success" && (
                 <div className="flex items-center gap-2 text-sm text-emerald-500 bg-emerald-50 dark:bg-emerald-400/10 border border-emerald-200 dark:border-emerald-400/20 rounded-xl px-4 py-3">
                   <HiCheckCircle size={18} />
-                  Message sent! Make sure to check your Gmail inbox to activate FormSubmit on the first ever submit.
+                  Message sent! I'll get back to you shortly.
                 </div>
               )}
               {status === "error" && (
