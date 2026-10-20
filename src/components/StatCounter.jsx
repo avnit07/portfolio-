@@ -38,7 +38,7 @@ const StatCounter = () => {
   const isInView = useInView(ref, { once: false, margin: "-40px" });
 
   return (
-    <div ref={ref} className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mt-10 sm:mt-14 w-full">
+    <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-5 mt-10 sm:mt-14 w-full min-w-0">
       {stats.map((stat, idx) => {
         const Icon = stat.icon;
         return (
@@ -47,7 +47,7 @@ const StatCounter = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.45, delay: idx * 0.08, type: "spring", stiffness: 90 }}
-            className="glass-card p-3.5 sm:p-5 flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-300"
+            className="glass-card p-3 sm:p-5 flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-300 min-w-0"
           >
             <div className={`p-2 sm:p-2.5 rounded-xl ${stat.color} mb-2.5 sm:mb-3 group-hover:scale-110 transition-transform`}>
               <Icon size={18} className="sm:w-5 sm:h-5" />

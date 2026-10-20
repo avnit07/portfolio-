@@ -87,9 +87,9 @@ const Experience = () => {
   return (
     <section
       id="experience"
-      className="section-padding bg-white dark:bg-[#070b14] border-t border-slate-200/80 dark:border-white/[0.06] relative"
+      className="section-padding bg-white dark:bg-[#070b14] border-t border-slate-200/80 dark:border-white/[0.06] relative overflow-hidden w-full max-w-full"
     >
-      <div className="container-max">
+      <div className="container-max w-full min-w-0">
         {/* ─── Header ─── */}
         <div className="text-center mb-14">
           <span className="text-cyan-600 dark:text-cyan-400 font-semibold text-xs uppercase tracking-widest px-3.5 py-1 rounded-full bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 dark:border-cyan-400/20 inline-flex items-center gap-1.5 mb-3">

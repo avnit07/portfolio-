@@ -74,10 +74,10 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
   };
 
   return (
-    <div className="terminal-card text-left max-w-full w-full mx-auto border border-slate-300 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl">
+    <div className="terminal-card text-left max-w-full w-full mx-auto border border-slate-300 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl min-w-0">
       {/* ─── Window Controls & Tabs Bar ─── */}
-      <div className="terminal-header bg-[#080d19] border-b border-slate-800 dark:border-white/[0.08] px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+      <div className="terminal-header bg-[#080d19] border-b border-slate-800 dark:border-white/[0.08] px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2 w-full min-w-0">
+        <div className="hidden sm:flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
           <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/80 inline-block" />
           <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block" />
           <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block" />
@@ -87,7 +87,7 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
         </div>
 
         {/* ─── IDE File Tabs ─── */}
-        <div className="flex items-center gap-1 bg-[#101726] p-0.5 sm:p-1 rounded-lg border border-slate-800 overflow-x-auto no-scrollbar max-w-[200px] xs:max-w-none">
+        <div className="flex items-center gap-1 bg-[#101726] p-0.5 sm:p-1 rounded-lg border border-slate-800 overflow-x-auto no-scrollbar flex-1 sm:flex-initial justify-start sm:justify-center min-w-0">
           {tabs.map((t) => {
             const Icon = t.icon;
             const isActive = activeTab === t.id;
@@ -95,7 +95,7 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono transition-all cursor-pointer whitespace-nowrap ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono transition-all cursor-pointer whitespace-nowrap flex-shrink-0 ${
                   isActive
                     ? "bg-cyan-500/20 text-cyan-400 font-semibold border border-cyan-400/30"
                     : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
@@ -113,15 +113,15 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
         <button
           onClick={handleCopy}
           aria-label="Copy code snippet"
-          className="p-1 sm:p-1.5 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors text-xs flex items-center gap-1 cursor-pointer flex-shrink-0"
+          className="p-1 sm:p-1.5 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors text-xs flex items-center gap-1 cursor-pointer flex-shrink-0 ml-auto sm:ml-0"
         >
           {copied ? <HiCheck size={14} className="text-emerald-400" /> : <HiClipboard size={14} />}
-          <span className="hidden sm:inline text-[11px]">{copied ? "Copied" : "Copy"}</span>
+          <span className="text-[10px] sm:text-[11px]">{copied ? "Copied" : "Copy"}</span>
         </button>
       </div>
 
       {/* ─── Editor Body Content ─── */}
-      <div className="p-3 sm:p-5 font-mono text-[11px] sm:text-xs bg-[#060a14] min-h-[260px] sm:min-h-[300px] overflow-x-auto leading-relaxed select-text">
+      <div className="p-3 sm:p-5 font-mono text-[11px] sm:text-xs bg-[#060a14] min-h-[260px] sm:min-h-[300px] overflow-hidden leading-relaxed select-text w-full max-w-full min-w-0">
         <AnimatePresence mode="wait">
           {activeTab === "canary" && (
             <motion.div
@@ -130,14 +130,14 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.15 }}
-              className="text-slate-300 flex gap-4"
+              className="text-slate-300 flex gap-2.5 sm:gap-4 w-full min-w-0"
             >
-              <div className="select-none text-slate-600 text-right pr-2 border-r border-slate-800">
+              <div className="select-none text-slate-600 text-right pr-2 border-r border-slate-800 flex-shrink-0 text-[10px] sm:text-xs">
                 {Array.from({ length: 19 }, (_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
               </div>
-              <pre className="overflow-x-auto">
+              <pre className="overflow-x-auto w-full min-w-0 flex-1 leading-relaxed">
                 <code>
                   <span className="text-slate-500">// Canary verification reverse proxy with automated SLA rollbacks</span>
                   {"\n"}
@@ -169,14 +169,14 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.15 }}
-              className="text-slate-300 flex gap-4"
+              className="text-slate-300 flex gap-2.5 sm:gap-4 w-full min-w-0"
             >
-              <div className="select-none text-slate-600 text-right pr-2 border-r border-slate-800">
+              <div className="select-none text-slate-600 text-right pr-2 border-r border-slate-800 flex-shrink-0 text-[10px] sm:text-xs">
                 {Array.from({ length: 17 }, (_, i) => (
                   <div key={i}>{i + 1}</div>
                 ))}
               </div>
-              <pre className="overflow-x-auto">
+              <pre className="overflow-x-auto w-full min-w-0 flex-1 leading-relaxed">
                 <code>
                   <span className="text-slate-500">// High-durability BigQuery telemetry pipeline with GCS Dead Letter Queue</span>
                   {"\n"}
@@ -207,7 +207,7 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.15 }}
-              className="space-y-2 text-xs"
+              className="space-y-2 text-[11px] sm:text-xs w-full min-w-0 overflow-x-auto"
             >
               {terminalOutput.map((item, idx) => (
                 <div

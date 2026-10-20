@@ -56,9 +56,9 @@ const About = () => {
   return (
     <section
       id="about"
-      className="section-padding bg-white dark:bg-[#060913] border-t border-slate-200/80 dark:border-white/[0.06] relative"
+      className="section-padding bg-white dark:bg-[#060913] border-t border-slate-200/80 dark:border-white/[0.06] relative overflow-hidden w-full max-w-full"
     >
-      <div className="container-max space-y-12">
+      <div className="container-max space-y-10 sm:space-y-12 w-full min-w-0">
         {/* ─── Header ─── */}
         <FadeInSection>
           <div className="text-center">

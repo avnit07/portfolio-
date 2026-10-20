@@ -305,9 +305,9 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="section-padding bg-[#f8fafc] dark:bg-[#060913] border-t border-slate-200/80 dark:border-white/[0.06] relative bg-grid-pattern"
+      className="section-padding bg-[#f8fafc] dark:bg-[#060913] border-t border-slate-200/80 dark:border-white/[0.06] relative bg-grid-pattern overflow-hidden w-full max-w-full"
     >
-      <div className="container-max">
+      <div className="container-max w-full min-w-0">
         {/* ─── Header ─── */}
         <div className="text-center mb-12">
           <span className="text-cyan-600 dark:text-cyan-400 font-semibold text-xs uppercase tracking-widest px-3.5 py-1 rounded-full bg-cyan-500/10 dark:bg-cyan-400/10 border border-cyan-500/20 dark:border-cyan-400/20 inline-block mb-3">

@@ -34,23 +34,23 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-subtle-glow bg-grid-pattern section-padding pt-24 sm:pt-28 pb-12 sm:pb-16"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-subtle-glow bg-grid-pattern section-padding pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 w-full max-w-full overflow-x-hidden"
     >
       <motion.div
-        className="container-max relative z-10 w-full"
+        className="container-max relative z-10 w-full min-w-0"
         style={{ y: parallaxY, opacity: parallaxOpacity }}
       >
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full min-w-0">
           {/* ─── Left Column: Hero Copy & CTA ─── */}
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
-            className="lg:col-span-7 flex flex-col items-start text-left gap-4 sm:gap-5"
+            className="lg:col-span-7 flex flex-col items-start text-left gap-4 sm:gap-5 w-full min-w-0"
           >
             {/* Status Pill Badge */}
             <motion.div variants={item} className="max-w-full">
-              <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 tracking-wide shadow-sm max-w-full">
+              <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 tracking-wide shadow-sm max-w-full">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
                 <span className="truncate">Software Engineer Intern @ Code Garage Tech</span>
               </span>
@@ -76,9 +76,9 @@ const Hero = () => {
             {/* Engineering Elevator Pitch */}
             <motion.p
               variants={item}
-              className="text-xs sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl font-normal"
+              className="text-xs sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed max-w-xl font-normal"
             >
-              Full-Stack Software Engineer shipping high-volume <strong className="text-slate-900 dark:text-slate-200 font-semibold">BigQuery telemetry pipelines</strong> (25,000+ daily events), event-driven backends with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Redis & BullMQ</strong>, and production SaaS features with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Next.js 15, TypeScript & PostgreSQL</strong>.
+              Full-Stack Software Engineer shipping high-volume <strong className="text-slate-900 dark:text-white font-semibold">BigQuery telemetry pipelines</strong> (25,000+ daily events), event-driven backends with <strong className="text-slate-900 dark:text-white font-semibold">Redis & BullMQ</strong>, and production SaaS features with <strong className="text-slate-900 dark:text-white font-semibold">Next.js 15, TypeScript & PostgreSQL</strong>.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -138,7 +138,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.95, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15, type: "spring", stiffness: 75 }}
-            className="lg:col-span-5 w-full"
+            className="lg:col-span-5 w-full min-w-0 max-w-full overflow-hidden"
           >
             <DeveloperTerminal />
           </motion.div>
