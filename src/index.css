@@ -12,162 +12,160 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
-  overflow-y: scroll; /* prevent layout shift on scrollbar appear */
+  scroll-padding-top: 5.5rem;
+  overflow-y: scroll;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  /* Crisp, antialiased rendering */
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  @apply bg-white text-slate-800 transition-colors duration-500;
+  @apply bg-[#f8fafc] text-slate-800 transition-colors duration-300 selection:bg-cyan-500/20 selection:text-cyan-700;
 }
 
 .dark body,
 .dark {
-  @apply bg-[#0a0f1e] text-slate-100;
+  @apply bg-[#080c16] text-slate-100 selection:bg-cyan-400/30 selection:text-cyan-300;
+}
+
+code, pre, .font-mono {
+  font-family: 'Fira Code', ui-monospace, SFMono-Regular, monospace;
 }
 
 /* ─── Custom Scrollbar ─────────────────────────────────── */
-::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { @apply bg-transparent; }
 ::-webkit-scrollbar-thumb {
-  @apply bg-cyan-400/60 rounded-full;
-  transition: background 0.3s ease;
+  background: rgba(100, 116, 139, 0.25);
+  border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover { @apply bg-cyan-400; }
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, 0.6);
+}
 
-/* ─── Layout Utilities ─────────────────────────────────── */
+/* ─── Layout & Utilities Layer ────────────────────────── */
 @layer utilities {
   .section-padding {
-    @apply py-20 px-6 md:px-12 lg:px-24;
+    @apply py-24 px-4 sm:px-8 md:px-12 lg:px-20;
   }
 
   .container-max {
     @apply max-w-6xl mx-auto;
   }
 
-  /* ─── Glassmorphism Card ─── */
+  /* ─── Dual-Mode Bento / Glassmorphism Card ─── */
   .glass-card {
-    @apply bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-2xl;
-    /* Own GPU compositing layer */
+    @apply bg-white dark:bg-[#0c1224]/90 backdrop-blur-xl border border-slate-200/90 dark:border-white/[0.08] rounded-2xl shadow-sm dark:shadow-2xl dark:shadow-black/50;
     transform: translateZ(0);
-    will-change: transform;
-    backface-visibility: hidden;
+    will-change: transform, box-shadow;
   }
 
-  /* ─── Gradient Text ─── */
+  .glass-card-interactive {
+    @apply glass-card transition-all duration-300 hover:border-cyan-500/50 dark:hover:border-cyan-400/40 hover:-translate-y-1 hover:shadow-xl hover:shadow-cyan-500/5 dark:hover:shadow-[0_12px_36px_rgba(0,0,0,0.6)];
+  }
+
+  /* ─── Dual-Mode Gradient Text ─── */
   .gradient-text {
-    @apply bg-gradient-to-r from-cyan-400 via-teal-400 to-emerald-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 dark:from-cyan-400 dark:via-teal-300 dark:to-emerald-400 bg-clip-text text-transparent;
   }
 
-  /* ─── Section Title ─── */
+  .gradient-text-hero {
+    @apply bg-gradient-to-r from-slate-900 via-slate-800 to-cyan-700 dark:from-white dark:via-slate-100 dark:to-cyan-300 bg-clip-text text-transparent;
+  }
+
+  /* ─── Section Titles ─── */
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-slate-800 dark:text-white mb-4;
+    @apply text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white;
+    letter-spacing: -0.03em;
   }
 
   .section-subtitle {
-    @apply text-slate-500 dark:text-slate-400 text-lg max-w-2xl mx-auto;
+    @apply text-slate-600 dark:text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-normal leading-relaxed;
   }
 
   /* ─── Skill Badge ─── */
   .skill-badge {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg
-           bg-slate-100 dark:bg-dark-600 text-slate-700 dark:text-slate-300
-           border border-slate-200 dark:border-slate-700
-           hover:border-cyan-400 hover:text-cyan-500 dark:hover:text-cyan-400
-           cursor-default;
-    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    @apply inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold rounded-xl
+           bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-200
+           border border-slate-200/80 dark:border-white/[0.08]
+           hover:border-cyan-500/50 dark:hover:border-cyan-400/50
+           hover:text-cyan-600 dark:hover:text-cyan-300
+           hover:bg-cyan-50/50 dark:hover:bg-cyan-400/10
+           transition-all duration-200 cursor-default shadow-sm;
   }
 
-  /* ─── Primary Button — spring bounce feel ─── */
+  /* ─── Primary Button ─── */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
-           bg-gradient-to-r from-cyan-500 to-teal-500 text-white
-           hover:from-cyan-400 hover:to-teal-400
-           shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40;
-    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
-    will-change: transform, box-shadow;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-xs sm:text-sm text-white
+           bg-gradient-to-r from-cyan-600 via-teal-600 to-emerald-600 hover:from-cyan-500 hover:via-teal-500 hover:to-emerald-500
+           shadow-md shadow-cyan-500/20 hover:shadow-lg hover:shadow-cyan-500/30 hover:-translate-y-0.5
+           active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer;
   }
-  .btn-primary:hover  { transform: translateY(-2px) scale(1.03); }
-  .btn-primary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.1s; }
 
   /* ─── Secondary Button ─── */
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm
-           border-2 border-cyan-400 text-cyan-400 dark:text-cyan-400
-           hover:bg-cyan-400 hover:text-slate-900 dark:hover:text-slate-900;
-    transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
-    will-change: transform;
-  }
-  .btn-secondary:hover  { transform: translateY(-2px) scale(1.03); }
-  .btn-secondary:active { transform: translateY(0px) scale(0.97); transition-duration: 0.1s; }
-
-  /* ─── Animated Background Glow Dots ─── */
-  .bg-dot-pattern {
-    background-image: radial-gradient(circle, rgba(34, 211, 238, 0.08) 1px, transparent 1px);
-    background-size: 32px 32px;
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 rounded-xl font-bold text-xs sm:text-sm
+           bg-white dark:bg-white/[0.05] text-slate-800 dark:text-slate-200
+           border border-slate-300/80 dark:border-white/[0.12]
+           hover:border-cyan-500/60 dark:hover:border-cyan-400/60
+           hover:text-cyan-600 dark:hover:text-cyan-300
+           hover:bg-cyan-50/40 dark:hover:bg-cyan-500/10 hover:-translate-y-0.5
+           shadow-sm active:translate-y-0 active:scale-95 transition-all duration-200 cursor-pointer;
   }
 }
 
-/* ─── Navbar glass effect ──────────────────────────────── */
-.navbar-glass {
-  background: rgba(255, 255, 255, 0.88);
+/* ─── Floating Capsule Navbar ────────────────────────── */
+.floating-navbar {
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
-.dark .navbar-glass {
-  background: rgba(10, 15, 30, 0.88);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+.dark .floating-navbar {
+  background: rgba(12, 18, 36, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
-/* ─── Hero background gradient ─────────────────────────── */
-.hero-gradient {
-  background: radial-gradient(ellipse at 20% 50%, rgba(34, 211, 238, 0.12) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 20%, rgba(52, 211, 153, 0.10) 0%, transparent 50%),
-              radial-gradient(ellipse at 60% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%);
+/* ─── Engineering Grid Background ─────────────────────── */
+.bg-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
 }
 
-/* ─── Hover Glow — spring cubic-bezier easing ──────────── */
-.hover-glow {
-  transition: box-shadow  0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              transform   0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-color 0.3s ease;
-  will-change: transform, box-shadow;
-  backface-visibility: hidden;
+.dark .bg-grid-pattern {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  mask-image: radial-gradient(ellipse at center, black 60%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 95%);
 }
 
-.hover-glow:hover {
-  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.35),
-              0 24px 48px rgba(34, 211, 238, 0.12),
-              0 8px 24px rgba(0, 0, 0, 0.15);
-  transform: translateY(-6px);
+.hero-subtle-glow {
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 55%);
 }
 
-/* ─── Page entrance ─────────────────────────────────────── */
-@keyframes page-enter {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+/* ─── Code / Terminal Styling ──────────────────────────── */
+.terminal-card {
+  @apply bg-[#0c1322] border border-slate-200/90 dark:border-white/[0.09] rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl dark:shadow-black/70 font-mono text-xs sm:text-sm;
 }
 
-#root {
-  animation: page-enter 0.45s ease both;
-}
-
-/* ─── Selection color ───────────────────────────────────── */
-::selection {
-  background: rgba(34, 211, 238, 0.22);
+.terminal-header {
+  @apply bg-[#080d19] px-4 py-3 border-b border-slate-800 dark:border-white/[0.08] flex items-center justify-between select-none;
 }
 
 /* ─── Focus ring ────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid rgba(34, 211, 238, 0.7);
+  outline: 2px solid rgba(6, 182, 212, 0.8);
   outline-offset: 3px;
-  border-radius: 6px;
+  border-radius: 8px;
 }

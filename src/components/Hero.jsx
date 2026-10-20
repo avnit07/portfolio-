@@ -1,172 +1,155 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { HiArrowDown, HiDownload } from "react-icons/hi";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { HiArrowDown, HiDownload, HiBriefcase } from "react-icons/hi";
+import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import { Link } from "react-scroll";
 import personal from "../data/personal";
-
-// ─── Spring config ───────────────────────────────────────────────────────────
+import DeveloperTerminal from "./DeveloperTerminal";
+import StatCounter from "./StatCounter";
 
 const spring = { type: "spring", stiffness: 80, damping: 18, mass: 0.8 };
 const springFast = { type: "spring", stiffness: 120, damping: 20, mass: 0.6 };
 
-// ─── Floating Background Blobs (parallax-aware) ──────────────────────────────
-
-const FloatingBlob = ({ className, delay = 0 }) => (
-  <motion.div
-    className={`absolute rounded-full blur-3xl opacity-20 dark:opacity-15 pointer-events-none ${className}`}
-    animate={{ y: [0, -28, 0], scale: [1, 1.07, 1], rotate: [0, 5, 0] }}
-    transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay }}
-    style={{ willChange: "transform" }}
-  />
-);
-
-// ─── Animated Text Variants — spring physics ─────────────────────────────────
-
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 28, filter: "blur(4px)" },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    filter: "blur(0px)",
     transition: { ...spring },
   },
 };
 
-// ─── Component ──────────────────────────────────────────────────────────────
-
 const Hero = () => {
-  // Scroll-linked parallax
   const { scrollY } = useScroll();
-  const rawY = useTransform(scrollY, [0, 500], [0, -80]);
-  const rawOpacity = useTransform(scrollY, [0, 350], [1, 0]);
+  const rawY = useTransform(scrollY, [0, 600], [0, -50]);
+  const rawOpacity = useTransform(scrollY, [0, 480], [1, 0]);
 
-  // Smooth the parallax values with springs
   const parallaxY = useSpring(rawY, { stiffness: 60, damping: 20, mass: 1 });
   const parallaxOpacity = useSpring(rawOpacity, { stiffness: 60, damping: 20 });
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-gradient bg-dot-pattern section-padding pt-24"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-subtle-glow bg-grid-pattern section-padding pt-28 pb-16"
     >
-      {/* ─── Background blobs ─── */}
-      <FloatingBlob className="w-96 h-96 bg-cyan-400 -top-20 -left-20" delay={0} />
-      <FloatingBlob className="w-72 h-72 bg-teal-400 bottom-20 right-10" delay={2.5} />
-      <FloatingBlob className="w-64 h-64 bg-violet-500 top-1/2 left-1/2 -translate-x-1/2" delay={5} />
-
-      {/* ─── Parallax content wrapper ─── */}
       <motion.div
-        className="container-max relative z-10 text-center"
+        className="container-max relative z-10 w-full"
         style={{ y: parallaxY, opacity: parallaxOpacity }}
       >
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="flex flex-col items-center gap-6"
-        >
-          {/* ─── Eyebrow label ─── */}
-          <motion.div variants={item}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold bg-cyan-400/10 border border-cyan-400/30 text-cyan-500 dark:text-cyan-400 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              Open to full-time MERN Stack roles
-            </span>
-          </motion.div>
-
-          {/* ─── Name ─── */}
-          <motion.h1
-            variants={item}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight"
-          >
-            <span className="text-slate-800 dark:text-white">Hi, I'm </span>
-            <span className="gradient-text">Avnit</span>
-          </motion.h1>
-
-          {/* ─── Role ─── */}
-          <motion.p
-            variants={item}
-            className="text-xl md:text-2xl font-semibold text-slate-500 dark:text-slate-400"
-          >
-            {personal.role}
-          </motion.p>
-
-          {/* ─── Tagline ─── */}
-          <motion.p
-            variants={item}
-            className="text-base md:text-lg text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed"
-          >
-            {personal.tagline}
-          </motion.p>
-
-          {/* ─── CTA Buttons ─── */}
-          <motion.div variants={item} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-2 w-full px-4 sm:px-0">
-            <Link to="projects" smooth={true} offset={-64} duration={700}>
-              <motion.button
-                className="btn-primary"
-                whileTap={{ scale: 0.96 }}
-                transition={springFast}
-              >
-                View My Work
-                <HiArrowDown size={16} className="animate-bounce" />
-              </motion.button>
-            </Link>
-
-            <a href="/avnit_resume_MERN_5march%20(3).pdf" target="_blank" rel="noopener noreferrer">
-              <motion.button
-                className="btn-secondary"
-                whileTap={{ scale: 0.96 }}
-                transition={springFast}
-              >
-                <HiDownload size={16} />
-                Download Resume
-              </motion.button>
-            </a>
-          </motion.div>
-
-          {/* ─── Social Icons ─── */}
-          <motion.div variants={item} className="flex items-center gap-6 mt-4">
-            {[
-              { href: personal.github,   Icon: FaGithub,   label: "GitHub" },
-              { href: personal.linkedin, Icon: FaLinkedin, label: "LinkedIn" },
-            ].map(({ href, Icon, label }) => (
-              <motion.a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-slate-400 hover:text-cyan-400 transition-colors duration-200"
-                whileHover={{ scale: 1.2, y: -2 }}
-                whileTap={{ scale: 0.92 }}
-                transition={springFast}
-              >
-                <Icon size={24} />
-              </motion.a>
-            ))}
-          </motion.div>
-
-          {/* ─── Scroll indicator ─── */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          {/* ─── Left Column: Hero Copy & CTA ─── */}
           <motion.div
-            variants={item}
-            className="mt-10 flex flex-col items-center gap-1 text-slate-400 dark:text-slate-600"
+            variants={container}
+            initial="hidden"
+            animate="show"
+            className="lg:col-span-7 flex flex-col items-start text-left gap-5"
           >
-            <span className="text-xs uppercase tracking-widest">Scroll</span>
-            <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
+            {/* Status Pill Badge */}
+            <motion.div variants={item}>
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 tracking-wide shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Software Engineer Intern @ Code Garage Tech
+              </span>
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.h1
+              variants={item}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-slate-900 dark:text-white"
             >
-              <HiArrowDown size={18} />
+              Hi, I'm <span className="gradient-text">Avnit Singh</span>
+            </motion.h1>
+
+            {/* Subtitle / Role */}
+            <motion.div
+              variants={item}
+              className="text-lg sm:text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2"
+            >
+              <HiBriefcase className="text-cyan-600 dark:text-cyan-400" />
+              <span>Full-Stack Software Engineer</span>
+            </motion.div>
+
+            {/* Engineering Elevator Pitch */}
+            <motion.p
+              variants={item}
+              className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl font-normal"
+            >
+              Full-Stack Software Engineer shipping high-volume <strong className="text-slate-900 dark:text-slate-200 font-semibold">BigQuery telemetry pipelines</strong> (25,000+ daily events), event-driven backends with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Redis & BullMQ</strong>, and production SaaS features with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Next.js 15, TypeScript & PostgreSQL</strong>.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div variants={item} className="flex flex-wrap items-center gap-3.5 pt-1 w-full sm:w-auto">
+              <Link to="projects" smooth={true} offset={-80} duration={600}>
+                <motion.button
+                  className="btn-primary"
+                  whileTap={{ scale: 0.97 }}
+                  transition={springFast}
+                >
+                  <span>Explore Case Studies</span>
+                  <HiArrowDown size={14} className="animate-bounce" />
+                </motion.button>
+              </Link>
+
+              <a href="/Avnit_Singh_Resume.pdf" target="_blank" rel="noopener noreferrer">
+                <motion.button
+                  className="btn-secondary"
+                  whileTap={{ scale: 0.97 }}
+                  transition={springFast}
+                >
+                  <HiDownload size={14} />
+                  <span>Download Resume</span>
+                </motion.button>
+              </a>
+            </motion.div>
+
+            {/* Verified Social Profile Links */}
+            <motion.div variants={item} className="flex items-center gap-3 pt-2">
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                Connect:
+              </span>
+              {[
+                { href: personal.github, Icon: FaGithub, label: "GitHub Profile" },
+                { href: personal.linkedin, Icon: FaLinkedin, label: "LinkedIn Profile" },
+                { href: `mailto:${personal.email}`, Icon: FaEnvelope, label: "Direct Email" },
+              ].map(({ href, Icon, label }) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="p-2.5 rounded-xl bg-white dark:bg-white/[0.05] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-all shadow-sm"
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.94 }}
+                  transition={springFast}
+                >
+                  <Icon size={16} />
+                </motion.a>
+              ))}
             </motion.div>
           </motion.div>
-        </motion.div>
+
+          {/* ─── Right Column: Interactive Code Workbench ─── */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 24 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15, type: "spring", stiffness: 75 }}
+            className="lg:col-span-5 w-full"
+          >
+            <DeveloperTerminal />
+          </motion.div>
+        </div>
+
+        {/* ─── Engineering Statistics Row ─── */}
+        <StatCounter />
       </motion.div>
     </section>
   );
 };
 
 export default Hero;
+

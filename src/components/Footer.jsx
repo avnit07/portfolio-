@@ -1,46 +1,77 @@
-import { FaGithub, FaLinkedin, FaHeart } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaHeart, FaEnvelope } from "react-icons/fa";
+import { Link } from "react-scroll";
 import personal from "../data/personal";
 
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-50 dark:bg-[#0d1424] border-t border-slate-100 dark:border-white/5">
-      <div className="container-max px-6 md:px-12 lg:px-24 py-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* ─── Brand ─── */}
-          <span className="text-lg font-bold gradient-text tracking-tight">
-            &lt;Avnit /&gt;
-          </span>
+    <footer className="bg-slate-100/80 dark:bg-[#050810] border-t border-slate-200/80 dark:border-white/[0.06] py-12">
+      <div className="container-max px-5 md:px-12 lg:px-20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200/80 dark:border-white/[0.08]">
+          {/* Brand */}
+          <div className="text-center md:text-left">
+            <span className="text-lg font-extrabold gradient-text tracking-tight">
+              &lt;Avnit.dev /&gt;
+            </span>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm">
+              Full-Stack Software Engineer building high-concurrency SaaS features, telemetry pipelines, and scalable web apps.
+            </p>
+          </div>
 
-          {/* ─── Copyright ─── */}
-          <p className="text-sm text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
-            Made with <FaHeart className="text-rose-400 animate-pulse" size={12} /> by{" "}
-            <span className="font-medium text-slate-600 dark:text-slate-400">{personal.name}</span>{" "}
-            © {year}
-          </p>
+          {/* Quick Nav */}
+          <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-semibold text-slate-600 dark:text-slate-300">
+            {["hero", "about", "experience", "projects", "skills", "contact"].map((section) => (
+              <Link
+                key={section}
+                to={section}
+                smooth={true}
+                offset={-80}
+                duration={500}
+                className="capitalize hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer"
+              >
+                {section}
+              </Link>
+            ))}
+          </div>
 
-          {/* ─── Social Links ─── */}
-          <div className="flex items-center gap-5">
+          {/* Social Icons */}
+          <div className="flex items-center gap-2.5">
             <a
               href={personal.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-slate-400 hover:text-cyan-400 transition-colors"
+              className="p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
             >
-              <FaGithub size={18} />
+              <FaGithub size={16} />
             </a>
             <a
               href={personal.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-slate-400 hover:text-cyan-400 transition-colors"
+              className="p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
             >
-              <FaLinkedin size={18} />
+              <FaLinkedin size={16} />
+            </a>
+            <a
+              href={`mailto:${personal.email}`}
+              aria-label="Email"
+              className="p-2.5 rounded-xl bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] text-slate-600 dark:text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-colors"
+            >
+              <FaEnvelope size={16} />
             </a>
           </div>
+        </div>
+
+        {/* Bottom copyright line */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400 font-medium">
+          <p className="flex items-center gap-1.5">
+            Designed & Built with <FaHeart className="text-rose-500" size={11} /> by{" "}
+            <span className="font-bold text-slate-800 dark:text-slate-200">{personal.name}</span>
+          </p>
+          <p>© {year} Avnit Singh. Engineered for production.</p>
         </div>
       </div>
     </footer>
@@ -48,3 +79,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

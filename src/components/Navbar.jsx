@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-scroll";
-import { HiSun, HiMoon, HiMenuAlt3, HiX } from "react-icons/hi";
-import { useTheme } from "../context/ThemeContext";
+import { HiCode, HiDownload, HiMenuAlt3, HiX, HiSun, HiMoon } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 
-// Navigation links for smooth scroll
 const navLinks = [
   { label: "About", to: "about" },
-  { label: "Skills", to: "skills" },
+  { label: "Experience", to: "experience" },
   { label: "Projects", to: "projects" },
+  { label: "Skills", to: "skills" },
   { label: "Contact", to: "contact" },
 ];
 
 const Navbar = () => {
-  const { isDark, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
-  // Add shadow + blur on scroll
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -25,115 +24,128 @@ const Navbar = () => {
   }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 navbar-glass ${
-        scrolled ? "shadow-lg shadow-cyan-500/5" : ""
-      }`}
-    >
-      <div className="container-max flex items-center justify-between h-16 px-6 md:px-12 lg:px-24">
-        {/* ─── Logo / Name ─── */}
+    <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-3 sm:pt-4 transition-all duration-300">
+      <motion.nav
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="max-w-5xl mx-auto rounded-full floating-navbar px-4 sm:px-6 py-2.5 flex items-center justify-between transition-all"
+      >
+        {/* ─── Logo ─── */}
         <Link
           to="hero"
           smooth={true}
           duration={500}
-          className="cursor-pointer"
+          className="cursor-pointer flex items-center gap-2 group"
         >
-          <span className="text-xl font-bold gradient-text tracking-tight">
-            &lt;Avnit /&gt;
+          <div className="w-8 h-8 rounded-full bg-cyan-500/10 dark:bg-cyan-400/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center group-hover:bg-cyan-500/20 transition-colors">
+            <HiCode size={18} />
+          </div>
+          <span className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white tracking-tight group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+            &lt;<span className="gradient-text">Avnit.dev</span> /&gt;
           </span>
         </Link>
 
-        {/* ─── Desktop Nav Links ─── */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* ─── Desktop Links ─── */}
+        <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.to}
               to={link.to}
               smooth={true}
-              offset={-64}
+              offset={-80}
               duration={500}
               spy={true}
-              activeClass="text-cyan-400"
-              className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-200 cursor-pointer relative group"
+              activeClass="!text-cyan-600 dark:!text-cyan-400 font-bold"
+              className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer relative group py-1"
             >
               {link.label}
-              {/* Underline on hover */}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-teal-400 group-hover:w-full transition-all duration-300" />
+              <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-cyan-500 group-hover:w-full transition-all duration-200" />
             </Link>
           ))}
+        </div>
 
-          {/* ─── Theme Toggle ─── */}
+        {/* ─── Right Controls: Theme Toggle & Resume CTA ─── */}
+        <div className="hidden md:flex items-center gap-3">
+          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-cyan-500 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-white/[0.08] transition-all cursor-pointer"
+            title={isDark ? "Light Mode" : "Dark Mode"}
           >
-            {isDark ? <HiSun size={20} /> : <HiMoon size={20} />}
+            {isDark ? <HiSun size={19} className="text-amber-400" /> : <HiMoon size={18} />}
           </button>
 
-          {/* ─── Resume CTA ─── */}
+          {/* Status Badge */}
+          <span className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Open for Roles
+          </span>
+
+          {/* Resume Download CTA */}
           <a
-            href="/avnit_resume_MERN_5march%20(3).pdf"
+            href="/Avnit_Singh_Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary text-xs px-4 py-2"
+            className="btn-primary text-xs px-4 py-2 rounded-full"
           >
-            Resume
+            <HiDownload size={13} />
+            <span>Resume</span>
           </a>
         </div>
 
-        {/* ─── Mobile: Theme + Hamburger ─── */}
-        <div className="flex md:hidden items-center gap-3">
+        {/* ─── Mobile Actions: Theme Toggle + Menu Hamburger ─── */}
+        <div className="flex md:hidden items-center gap-1.5">
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-cyan-400 transition-colors"
+            className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-cyan-500 transition-colors"
           >
-            {isDark ? <HiSun size={20} /> : <HiMoon size={20} />}
+            {isDark ? <HiSun size={18} className="text-amber-400" /> : <HiMoon size={18} />}
           </button>
+
           <button
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
-            className="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:text-cyan-400 transition-colors"
+            className="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:text-cyan-500 transition-colors"
           >
-            {menuOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
+            {menuOpen ? <HiX size={22} /> : <HiMenuAlt3 size={22} />}
           </button>
         </div>
-      </div>
+      </motion.nav>
 
-      {/* ─── Mobile Dropdown Menu ─── */}
+      {/* ─── Mobile Menu Dropdown ─── */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.25 }}
-            className="md:hidden overflow-hidden navbar-glass border-t border-white/10"
+            initial={{ opacity: 0, scale: 0.96, y: -10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: -10 }}
+            transition={{ duration: 0.18 }}
+            className="md:hidden max-w-sm mx-auto mt-2 glass-card p-5 border border-slate-200/90 dark:border-white/10 text-center space-y-4"
           >
-            <div className="flex flex-col items-center gap-4 py-6 px-6">
+            <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
                   smooth={true}
-                  offset={-64}
+                  offset={-80}
                   duration={500}
                   onClick={() => setMenuOpen(false)}
-                  className="text-base font-medium text-slate-700 dark:text-slate-300 hover:text-cyan-400 transition-colors cursor-pointer"
+                  className="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-cyan-500 transition-colors cursor-pointer py-1.5"
                 >
                   {link.label}
                 </Link>
               ))}
+
               <a
-                href="/avnit_resume_MERN_5march%20(3).pdf"
+                href="/Avnit_Singh_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
-                className="btn-primary text-sm"
+                className="btn-primary text-xs py-3 w-full text-center justify-center mt-2 rounded-xl"
               >
                 Download Resume
               </a>
@@ -141,8 +153,9 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </header>
   );
 };
 
 export default Navbar;
+
