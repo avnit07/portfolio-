@@ -8,7 +8,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
         primary: {
@@ -19,36 +20,30 @@ export default {
         secondary: {
           400: '#34d399',
           500: '#10b981',
+          600: '#059669',
         },
         dark: {
-          900: '#0a0f1e',
-          800: '#0d1424',
-          700: '#111827',
-          600: '#1a2236',
-          500: '#1e2d45',
+          950: '#05070e',
+          900: '#080c16',
+          800: '#0e1526',
+          700: '#141d33',
+          600: '#1e2942',
+          500: '#2d3b59',
         },
       },
       animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'gradient': 'gradient 8s ease infinite',
+        'shimmer': 'shimmer 2.5s linear infinite',
+        'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
       },
       keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
         },
-        glow: {
-          '0%': { boxShadow: '0 0 5px #22d3ee, 0 0 10px #22d3ee' },
-          '100%': { boxShadow: '0 0 20px #22d3ee, 0 0 40px #22d3ee' },
+        pulseSubtle: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.6 },
         },
-        gradient: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
-        },
-      },
-      backgroundSize: {
-        '300%': '300%',
       },
     },
   },
