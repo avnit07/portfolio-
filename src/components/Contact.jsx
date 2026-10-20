@@ -179,11 +179,11 @@ const Contact = () => {
             </div>
 
             {/* Social Channels */}
-            <div className="glass-card p-5 text-left border border-slate-200/90 dark:border-white/[0.08]">
+            <div className="glass-card p-4 sm:p-5 text-left border border-slate-200/90 dark:border-white/[0.08]">
               <p className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-3">
                 Social Profiles
               </p>
-              <div className="flex gap-2.5">
+              <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-2.5">
                 {socials.map(({ icon: Icon, label, href }) => (
                   <a
                     key={label}
@@ -191,9 +191,9 @@ const Contact = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="flex-1 py-2.5 px-3 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-all font-semibold text-xs"
+                    className="flex-1 min-w-[90px] py-2 sm:py-2.5 px-2.5 sm:px-3 rounded-xl bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08] flex items-center justify-center gap-2 text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500/40 transition-all font-semibold text-xs"
                   >
-                    <Icon size={15} />
+                    <Icon size={14} className="flex-shrink-0" />
                     <span>{label}</span>
                   </a>
                 ))}
@@ -208,7 +208,7 @@ const Contact = () => {
             transition={{ duration: 0.5, delay: 0.18 }}
             className="lg:col-span-7"
           >
-            <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-6 sm:p-7 space-y-4 border border-slate-200/90 dark:border-white/[0.08]">
+            <form ref={formRef} onSubmit={handleSubmit} className="glass-card p-4 sm:p-6 md:p-7 space-y-4 border border-slate-200/90 dark:border-white/[0.08]">
               <h3 className="text-lg font-extrabold text-slate-900 dark:text-white text-left">
                 Send a Direct Message
               </h3>

@@ -58,7 +58,7 @@ const CategoryCard = ({ category, delay }) => {
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ type: "spring", stiffness: 80, damping: 18, delay }}
-      className="glass-card p-6 border-t-2 border-t-cyan-500 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+      className="glass-card p-4 sm:p-6 border-t-2 border-t-cyan-500 hover:border-cyan-500/50 dark:hover:border-cyan-400/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
     >
       <div>
         <div className="flex items-center justify-between gap-3 mb-5 pb-3 border-b border-slate-200/70 dark:border-white/[0.08]">
@@ -127,13 +127,13 @@ const Skills = () => {
         </div>
 
         {/* ─── Search & Category Filters Bar ─── */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-10">
-          <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3.5 sm:gap-4 mb-8 sm:mb-10">
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
             {categoriesList.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
+                className={`px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs md:text-sm font-semibold transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? "bg-cyan-600 dark:bg-cyan-500 text-white shadow-md shadow-cyan-500/25 border border-cyan-500"
                     : "bg-white dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.08] border border-slate-200 dark:border-white/[0.08]"

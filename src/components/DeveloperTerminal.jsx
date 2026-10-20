@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HiCheck, HiClipboard, HiTerminal, HiCode, HiSparkles } from "react-icons/hi";
 
 const tabs = [
-  { id: "canary", label: "canary-proxy.ts", icon: HiCode },
-  { id: "telemetry", label: "telemetry-dlq.ts", icon: HiSparkles },
-  { id: "terminal", label: "terminal.sh", icon: HiTerminal },
+  { id: "canary", label: "canary-proxy.ts", shortLabel: "canary.ts", icon: HiCode },
+  { id: "telemetry", label: "telemetry-dlq.ts", shortLabel: "dlq.ts", icon: HiSparkles },
+  { id: "terminal", label: "terminal.sh", shortLabel: "term.sh", icon: HiTerminal },
 ];
 
 const DeveloperTerminal = () => {
@@ -76,18 +76,18 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
   return (
     <div className="terminal-card text-left max-w-full w-full mx-auto border border-slate-300 dark:border-white/10 rounded-2xl overflow-hidden shadow-2xl backdrop-blur-xl">
       {/* ─── Window Controls & Tabs Bar ─── */}
-      <div className="terminal-header bg-[#080d19] border-b border-slate-800 dark:border-white/[0.08] px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="w-3 h-3 rounded-full bg-rose-500/80 inline-block" />
-          <span className="w-3 h-3 rounded-full bg-amber-500/80 inline-block" />
-          <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
-          <span className="ml-2 text-[11px] font-mono text-slate-400 hidden sm:inline">
+      <div className="terminal-header bg-[#080d19] border-b border-slate-800 dark:border-white/[0.08] px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-rose-500/80 inline-block" />
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-500/80 inline-block" />
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-emerald-500/80 inline-block" />
+          <span className="ml-2 text-[11px] font-mono text-slate-400 hidden md:inline">
             workbench — avnit@code-garage
           </span>
         </div>
 
         {/* ─── IDE File Tabs ─── */}
-        <div className="flex items-center gap-1 bg-[#101726] p-1 rounded-lg border border-slate-800">
+        <div className="flex items-center gap-1 bg-[#101726] p-0.5 sm:p-1 rounded-lg border border-slate-800 overflow-x-auto no-scrollbar max-w-[200px] xs:max-w-none">
           {tabs.map((t) => {
             const Icon = t.icon;
             const isActive = activeTab === t.id;
@@ -95,14 +95,15 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono transition-all cursor-pointer ${
+                className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-[10px] sm:text-[11px] font-mono transition-all cursor-pointer whitespace-nowrap ${
                   isActive
                     ? "bg-cyan-500/20 text-cyan-400 font-semibold border border-cyan-400/30"
                     : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
                 }`}
               >
-                <Icon size={12} />
-                <span>{t.label}</span>
+                <Icon size={12} className="flex-shrink-0" />
+                <span className="hidden sm:inline">{t.label}</span>
+                <span className="sm:hidden">{t.shortLabel}</span>
               </button>
             );
           })}
@@ -112,7 +113,7 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
         <button
           onClick={handleCopy}
           aria-label="Copy code snippet"
-          className="p-1.5 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors text-xs flex items-center gap-1 cursor-pointer"
+          className="p-1 sm:p-1.5 rounded-lg text-slate-400 hover:text-cyan-400 hover:bg-white/5 transition-colors text-xs flex items-center gap-1 cursor-pointer flex-shrink-0"
         >
           {copied ? <HiCheck size={14} className="text-emerald-400" /> : <HiClipboard size={14} />}
           <span className="hidden sm:inline text-[11px]">{copied ? "Copied" : "Copy"}</span>
@@ -120,7 +121,7 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
       </div>
 
       {/* ─── Editor Body Content ─── */}
-      <div className="p-4 sm:p-5 font-mono text-xs bg-[#060a14] min-h-[300px] overflow-x-auto leading-relaxed select-text">
+      <div className="p-3 sm:p-5 font-mono text-[11px] sm:text-xs bg-[#060a14] min-h-[260px] sm:min-h-[300px] overflow-x-auto leading-relaxed select-text">
         <AnimatePresence mode="wait">
           {activeTab === "canary" && (
             <motion.div
@@ -232,12 +233,12 @@ export async function ingestTelemetryBatch(events: TelemetryPayload[]) {
       </div>
 
       {/* ─── Bottom Status Bar ─── */}
-      <div className="bg-[#080d19] border-t border-slate-800 dark:border-white/[0.08] px-4 py-2 flex items-center justify-between text-[11px] text-slate-400">
-        <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+      <div className="bg-[#080d19] border-t border-slate-800 dark:border-white/[0.08] px-3 sm:px-4 py-2 flex items-center justify-between gap-2 text-[10px] sm:text-[11px] text-slate-400">
+        <span className="flex items-center gap-1.5 text-emerald-400 font-semibold flex-shrink-0">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          Production Environment
+          Production
         </span>
-        <span className="font-mono text-slate-500">TypeScript · BullMQ · Redis · BigQuery · Next.js</span>
+        <span className="font-mono text-slate-500 truncate text-right">TypeScript · BullMQ · Redis · BigQuery</span>
       </div>
     </div>
   );

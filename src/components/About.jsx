@@ -76,18 +76,18 @@ const About = () => {
         {/* ─── Bento Grid ─── */}
         <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           {/* Left Column: Summary Bio & Core Focus */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
             <FadeInSection delay={0.1}>
-              <div className="glass-card p-6 sm:p-7 space-y-4 border border-slate-200/90 dark:border-white/[0.08]">
+              <div className="glass-card p-4 sm:p-6 md:p-7 space-y-4 border border-slate-200/90 dark:border-white/[0.08]">
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400">
-                    <HiUserGroup size={20} />
+                  <div className="p-2 sm:p-2.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-400 flex-shrink-0">
+                    <HiUserGroup size={18} className="sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
+                    <h3 className="text-sm sm:text-base md:text-lg font-extrabold text-slate-900 dark:text-white">
                       Professional Background
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">B.Tech Computer Science (2022 – 2026)</p>
+                    <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium">B.Tech Computer Science (2022 – 2026)</p>
                   </div>
                 </div>
 
@@ -99,14 +99,14 @@ const About = () => {
                   {personal.seeking}
                 </p>
 
-                <div className="pt-3 border-t border-slate-200/70 dark:border-white/[0.08] flex flex-wrap items-center justify-between gap-4">
-                  <span className="text-xs text-slate-600 dark:text-slate-400">
+                <div className="pt-3 border-t border-slate-200/70 dark:border-white/[0.08] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4">
+                  <span className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 truncate">
                     Direct Email: <span className="font-semibold text-slate-900 dark:text-slate-200">{personal.email}</span>
                   </span>
 
                   <button
                     onClick={handleCopyEmail}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20 transition-all border border-cyan-500/30 active:scale-95 cursor-pointer"
+                    className="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20 transition-all border border-cyan-500/30 active:scale-95 cursor-pointer w-full sm:w-auto"
                   >
                     {copiedEmail ? <HiCheck size={14} className="text-emerald-500" /> : <HiClipboardCopy size={14} />}
                     <span>{copiedEmail ? "Copied!" : "Copy Email"}</span>
@@ -117,21 +117,21 @@ const About = () => {
 
             {/* Core Technical Focus */}
             <FadeInSection delay={0.15}>
-              <div className="glass-card p-6 border border-slate-200/90 dark:border-white/[0.08]">
-                <div className="flex items-center gap-2 mb-3.5">
-                  <HiLightBulb className="text-amber-500" size={18} />
-                  <h3 className="font-bold text-slate-900 dark:text-white text-xs uppercase tracking-wider">
+              <div className="glass-card p-4 sm:p-6 border border-slate-200/90 dark:border-white/[0.08]">
+                <div className="flex items-center gap-2 mb-3">
+                  <HiLightBulb className="text-amber-500 flex-shrink-0" size={17} />
+                  <h3 className="font-bold text-slate-900 dark:text-white text-[11px] sm:text-xs uppercase tracking-wider">
                     Core Engineering Priorities
                   </h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 sm:gap-2">
                   {personal.currentlyLearning.map((item) => (
                     <span
                       key={item}
-                      className="px-3 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] flex items-center gap-1.5"
+                      className="px-2.5 sm:px-3 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold rounded-xl bg-slate-100 dark:bg-white/[0.04] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/[0.08] flex items-center gap-1.5"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
-                      {item}
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
+                      <span>{item}</span>
                     </span>
                   ))}
                 </div>

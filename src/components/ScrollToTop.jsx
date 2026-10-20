@@ -36,7 +36,7 @@ const ScrollToTop = () => {
           transition={{ duration: 0.25 }}
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass-card flex items-center justify-center text-slate-700 dark:text-cyan-400 hover:text-cyan-500 shadow-xl border border-cyan-400/30 group transition-transform active:scale-95"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-10 h-10 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center text-slate-700 dark:text-cyan-400 hover:text-cyan-500 shadow-xl border border-cyan-400/30 group transition-transform active:scale-95"
         >
           {/* SVG Progress Ring */}
           <svg className="absolute w-full h-full -rotate-90 p-1" viewBox="0 0 36 36">

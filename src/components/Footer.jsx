@@ -6,21 +6,21 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-100/80 dark:bg-[#050810] border-t border-slate-200/80 dark:border-white/[0.06] py-12">
-      <div className="container-max px-5 md:px-12 lg:px-20">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-200/80 dark:border-white/[0.08]">
+    <footer className="bg-slate-100/80 dark:bg-[#050810] border-t border-slate-200/80 dark:border-white/[0.06] py-8 sm:py-12">
+      <div className="container-max px-4 sm:px-8 md:px-12 lg:px-20">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-5 sm:gap-6 pb-6 sm:pb-8 border-b border-slate-200/80 dark:border-white/[0.08]">
           {/* Brand */}
           <div className="text-center md:text-left">
-            <span className="text-lg font-extrabold gradient-text tracking-tight">
+            <span className="text-base sm:text-lg font-extrabold gradient-text tracking-tight">
               &lt;Avnit.dev /&gt;
             </span>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm">
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-1 max-w-sm">
               Full-Stack Software Engineer building high-concurrency SaaS features, telemetry pipelines, and scalable web apps.
             </p>
           </div>
 
           {/* Quick Nav */}
-          <div className="flex flex-wrap items-center justify-center gap-5 text-xs font-semibold text-slate-600 dark:text-slate-300">
+          <div className="flex flex-wrap items-center justify-center gap-3.5 sm:gap-5 text-xs font-semibold text-slate-600 dark:text-slate-300">
             {["hero", "about", "experience", "projects", "skills", "contact"].map((section) => (
               <Link
                 key={section}

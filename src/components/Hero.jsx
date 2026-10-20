@@ -34,32 +34,32 @@ const Hero = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-subtle-glow bg-grid-pattern section-padding pt-28 pb-16"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden hero-subtle-glow bg-grid-pattern section-padding pt-24 sm:pt-28 pb-12 sm:pb-16"
     >
       <motion.div
         className="container-max relative z-10 w-full"
         style={{ y: parallaxY, opacity: parallaxOpacity }}
       >
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* ─── Left Column: Hero Copy & CTA ─── */}
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
-            className="lg:col-span-7 flex flex-col items-start text-left gap-5"
+            className="lg:col-span-7 flex flex-col items-start text-left gap-4 sm:gap-5"
           >
             {/* Status Pill Badge */}
-            <motion.div variants={item}>
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 tracking-wide shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                Software Engineer Intern @ Code Garage Tech
+            <motion.div variants={item} className="max-w-full">
+              <span className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 tracking-wide shadow-sm max-w-full">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+                <span className="truncate">Software Engineer Intern @ Code Garage Tech</span>
               </span>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1
               variants={item}
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.08] text-slate-900 dark:text-white"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12] sm:leading-[1.08] text-slate-900 dark:text-white"
             >
               Hi, I'm <span className="gradient-text">Avnit Singh</span>
             </motion.h1>
@@ -67,25 +67,25 @@ const Hero = () => {
             {/* Subtitle / Role */}
             <motion.div
               variants={item}
-              className="text-lg sm:text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2"
+              className="text-base sm:text-xl md:text-2xl font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2"
             >
-              <HiBriefcase className="text-cyan-600 dark:text-cyan-400" />
+              <HiBriefcase className="text-cyan-600 dark:text-cyan-400 flex-shrink-0" />
               <span>Full-Stack Software Engineer</span>
             </motion.div>
 
             {/* Engineering Elevator Pitch */}
             <motion.p
               variants={item}
-              className="text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl font-normal"
+              className="text-xs sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl font-normal"
             >
               Full-Stack Software Engineer shipping high-volume <strong className="text-slate-900 dark:text-slate-200 font-semibold">BigQuery telemetry pipelines</strong> (25,000+ daily events), event-driven backends with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Redis & BullMQ</strong>, and production SaaS features with <strong className="text-slate-900 dark:text-slate-200 font-semibold">Next.js 15, TypeScript & PostgreSQL</strong>.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={item} className="flex flex-wrap items-center gap-3.5 pt-1 w-full sm:w-auto">
-              <Link to="projects" smooth={true} offset={-80} duration={600}>
+            <motion.div variants={item} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 w-full sm:w-auto">
+              <Link to="projects" smooth={true} offset={-80} duration={600} className="w-full sm:w-auto">
                 <motion.button
-                  className="btn-primary"
+                  className="btn-primary w-full justify-center"
                   whileTap={{ scale: 0.97 }}
                   transition={springFast}
                 >
@@ -94,9 +94,9 @@ const Hero = () => {
                 </motion.button>
               </Link>
 
-              <a href="/Avnit_Singh_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/Avnit_Singh_Resume.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                 <motion.button
-                  className="btn-secondary"
+                  className="btn-secondary w-full justify-center"
                   whileTap={{ scale: 0.97 }}
                   transition={springFast}
                 >

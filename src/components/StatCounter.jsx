@@ -38,7 +38,7 @@ const StatCounter = () => {
   const isInView = useInView(ref, { once: false, margin: "-40px" });
 
   return (
-    <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-14 w-full">
+    <div ref={ref} className="grid grid-cols-1 min-[420px]:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5 mt-10 sm:mt-14 w-full">
       {stats.map((stat, idx) => {
         const Icon = stat.icon;
         return (
@@ -47,18 +47,18 @@ const StatCounter = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.45, delay: idx * 0.08, type: "spring", stiffness: 90 }}
-            className="glass-card p-4 sm:p-5 flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-300"
+            className="glass-card p-3.5 sm:p-5 flex flex-col items-center text-center group hover:border-cyan-500/40 transition-all duration-300"
           >
-            <div className={`p-2.5 rounded-xl ${stat.color} mb-3 group-hover:scale-110 transition-transform`}>
-              <Icon size={20} />
+            <div className={`p-2 sm:p-2.5 rounded-xl ${stat.color} mb-2.5 sm:mb-3 group-hover:scale-110 transition-transform`}>
+              <Icon size={18} className="sm:w-5 sm:h-5" />
             </div>
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            <span className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               {stat.count}
             </span>
             <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 mt-1">
               {stat.label}
             </span>
-            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1">
+            <span className="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
               {stat.detail}
             </span>
           </motion.div>

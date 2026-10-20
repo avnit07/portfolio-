@@ -14,7 +14,7 @@ import CursorSpotlight from "./components/CursorSpotlight";
 function App() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-[#f8fafc] dark:bg-[#080c16] text-slate-900 dark:text-slate-100 transition-colors duration-300 relative selection:bg-cyan-500/20 selection:text-cyan-700 dark:selection:text-cyan-300">
+      <div className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#f8fafc] dark:bg-[#080c16] text-slate-900 dark:text-slate-100 transition-colors duration-300 relative selection:bg-cyan-500/20 selection:text-cyan-700 dark:selection:text-cyan-300">
         {/* Top Scroll Progress Indicator */}
         <ScrollProgress />
 
